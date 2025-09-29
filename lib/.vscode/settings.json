@@ -1,0 +1,5 @@
+{
+    "kdb.connectionMap": {
+        "abs.q": "local"
+    }
+}
