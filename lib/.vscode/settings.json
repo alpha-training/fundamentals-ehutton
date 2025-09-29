@@ -1,5 +1,7 @@
 {
     "kdb.connectionMap": {
-        "abs.q": "local"
+        "abs.q": "local",
+        "Neg.q": "local",
+        "Tostr.q": "local"
     }
 }
