@@ -1,0 +1,5 @@
+{
+    "kdb.connectionMap": {
+        "lib/abs.q": "REPL"
+    }
+}
