@@ -2,6 +2,10 @@
     "kdb.connectionMap": {
         "abs.q": "local",
         "Neg.q": "local",
-        "Tostr.q": "local"
+        "Tostr.q": "local",
+        "test.q": "local",
+        "log.q": "local",
+        "external.q": "local",
+        "event.q": "local"
     }
 }
