@@ -6,6 +6,7 @@
         "test.q": "local",
         "log.q": "local",
         "external.q": "local",
-        "event.q": "local"
+        "event.q": "local",
+        "pubsub.q": "local"
     }
 }

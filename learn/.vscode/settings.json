@@ -1,0 +1,8 @@
+{
+    "kdb.connectionMap": {
+        "server.q": "local",
+        "client.q": "local",
+        "Sync&Async.q": "local"
+    },
+    "kdb.targetMap": {}
+}
