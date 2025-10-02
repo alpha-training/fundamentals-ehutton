@@ -67,8 +67,6 @@ pub:{[t;x]
 	  
 .z.pc:{[h]
     w::{x except y}[;h] each w;
- 
- / Clean up (.u.)w when a handle drops
  } /so i need to do something like except x here how we did in the vid
 	
 

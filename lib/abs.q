@@ -1,0 +1,1 @@
+myAbs: {[x] x * signum x}
