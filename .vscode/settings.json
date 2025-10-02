@@ -1,8 +1,0 @@
-{
-    "kdb.connectionMap": {
-        "lib/abs.q": "REPL",
-        "learn/Sync&Async.q": "local",
-        "lib/pubsub.q": "local",
-        "lib/client1.q": "local"
-    }
-}
