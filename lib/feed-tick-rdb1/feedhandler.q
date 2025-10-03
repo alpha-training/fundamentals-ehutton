@@ -40,3 +40,8 @@ genListQuote:{[]
 \t 100
 
 
+/ 
+Kieran Feedback
+
+neg[h](`.u.upd;Q 0;Q 1);   / lose the square brackets
+Your style of doing it across multiple lines is not traditional q-like but it has its advantages and it works, which is the main thing

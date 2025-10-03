@@ -29,3 +29,8 @@ upd:{[t;x]
  }		/ remove any dropped handles from w
 
 \d .
+
+/
+Kieran Feedback
+
+The feedback for .z.pc may be viewed in the feedback for the pubsub exercise
