@@ -17,7 +17,7 @@ genListTrade:{[]
 / this needs to take raw data and convert them into lists 
 genListQuote:{[]
             N: 1+rand 1000;
-            (`quote; (
+            (`quote;(
             N#.z.p;      / a list of timestamps
             N?SYMS;      / a list of symbols
             N?1000.0;    / a list of bids
@@ -31,8 +31,8 @@ genListQuote:{[]
 / upon each tick this need to send an async command to run the upd function in the ticketplant
 
  .z.ts:{
-    Q: genQuote[];
-    T: genTrade[];
+    Q: genListQuote[];
+    T: genListTrade[];
     neg[h](`.u.upd;Q[0];Q[1]);
     neg[h](`.u.upd;T[0];T[1])
  }

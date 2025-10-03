@@ -15,11 +15,9 @@ COLS_DICT:()!()
 COLS_DICT[`trade]:`time`sym`size`price
 COLS_DICT[`quote]:`time`sym`bid`ask`bidSize`askSize
 
-upd:{[t;x]
-    if[not type x;
-    table: flip COLS_DICT[t] ! x]  / a:  => add code here to convert x into a table
-    .u.pub[t;table]
-                    
+upd:{[t;x] 
+  tbl: flip COLS_DICT[t]!x;
+  .u.pub[t;tbl];
  }
 
 

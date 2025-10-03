@@ -66,7 +66,7 @@ pub:{[t;x]
  / THIS IS WHEN we need to send the info to each person in sub
 	  
 .z.pc:{[h]
-    w::{x except y}[;h] each w;
+     w::{x except y}[;h] each w;
  } /so i need to do something like except x here how we did in the vid
 	
 
