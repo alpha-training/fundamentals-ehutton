@@ -71,3 +71,13 @@ genQuote:{
  }
 		
 \t 1000 / run the timer every second
+
+
+/
+Kieran Feedback
+
+neg[handles](`upd;t;x);  -> won't work, suggest testing
+{x except y} -> {x func y} can always be replaced with just func
+
+both of the above cases could benefit from use of dyadic adverb each-left/each-both
+

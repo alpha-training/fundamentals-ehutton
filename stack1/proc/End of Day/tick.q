@@ -1,5 +1,5 @@
 \p 5010
-\l cron.q
+\l C:/Users/ellio/fundamentals-ehutton/stack1/lib/cron.q
 
 
 trade1:([]
@@ -25,6 +25,7 @@ sub:{[t]
 pub:{[t;x] 
     neg[w t]@\:(`upd;t;x)
  }
+
 
 
 COLS_DICT:()!()
@@ -56,3 +57,7 @@ end:{[]
 Kieran Feedback
 
 The feedback for .z.pc may be viewed in the feedback for the pubsub exercise
+
+SCHEMA_DICT:()!()
+SCHEMA_DICT[`trade]:`timestamp`symbol`long`float
+SCHEMA_DICT[`quote]:`timestamp`symbol`float`float`long`long
