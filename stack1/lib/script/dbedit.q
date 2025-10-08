@@ -1,4 +1,4 @@
-/ allcols`:db/2025.09.01/quote
+/ allcols`:db/2025.09.01/trade
 / return the contents of the .d file in that directory
 \e 1
 
@@ -7,38 +7,27 @@ allcols:{[tabledir]
     file: `$(string (hsym tabledir));   
     list: (file; `.d);
     path: ` sv list;
-    col:get path; /this returns the columns names only need up to here for allcols
-    list: (file;col[0]);
-    path: ` sv list;
     get path
  }
+/
+allcols:{[tabledir] 
+    file: (string (hsym tabledir),".d") / this gives ":db/2025.09.01/trade" "." "d" 
+    file: `$file; / this gives `:db/2025.09.01/trade`.`d
+    file:` sv file / this gives `:db/2025.09.01/trade/./d    
+ }
 
-
-/ add1col[`:db/2025.09.01/quote;`volume;0N]
+/ add1col[`:db/2025.09.01/trade;`volume;0N]
 / accepts the full path to a table directory, the name of the column, and default value
 / if the colname is not already in the .d file, do the following
 /	- print out a statement saying what you're about to do (include args)
 /	- obtain the count of the first column in the .d file, to determine how many records exist
 /	- create a new file in the directory populated with deafault values of the same length
 /	- add the new column name to the .d file
-
-
 add1col:{[tabledir;colname;defaultvalue]
-   -1"fetching size of",(string tabledir)," and adding the column: ",(string colname)," to the table";
-    file: `$(string (hsym tabledir));   
-    list1: (file; `.d);
-    path1: ` sv list1;
-    col:get path1; /this returns the columns names only need up to here for allcols
-    list2: (file; col[0][0]);
-    path2: ` sv list2;
-    size: count get path2; /this successfully gets the size of the table
-    colpath: `$((string tabledir), "/", (string colname)); / added the/ at the end to make it splayed
-    defaultData: size#(defaultvalue);
-    colpath set defaultDdata;
-    path1 set col,colname;
+
+   /  `:quote/.d set `time`ask`bid
+
   }
-
-
 
 / delete1col[`:db/2025.09.01/trade;`volume]
 / accepts the full path to a table directory, and the name of the column
