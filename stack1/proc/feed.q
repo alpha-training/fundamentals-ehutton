@@ -9,7 +9,8 @@ genListTrade:{[]
             N#.z.p;
             N?SYMS;
             N?100;
-            N?1000.0
+            N?1000.0;
+            N?`N`L`T
     ))
  }
 
@@ -18,12 +19,13 @@ genListTrade:{[]
 genListQuote:{[]
             N: 1+rand 1000;
             (`quote;(
-            N#.z.p;      / a list of timestamps
-            N?SYMS;      / a list of symbols
-            N?1000.0;    / a list of bids
-            N?1000.0;    / a list of asks
-            N?100;       / a list of bid sizes as integers
-            N?100        / a list of ask sizes as integers
+            N#.z.p;
+            N?SYMS;
+            N?1000.0;
+            N?1000.0;
+            N?100;
+            N?100;
+            N?`N`L`T
       ))
   }
  
