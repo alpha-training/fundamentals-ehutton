@@ -77,7 +77,21 @@ addcol:{[dbdir;table;colname;defaultvalue] 		/ addcol[`:db;`quote;`volume;0N]
 deletecol:{[dbdir;table;col] 	/ deletecol[`:db;`quote;`volume]
     delete1col[;col] each allpaths[dbdir;table]
   }
+fn1col:{[dir;col;fn] /fn1col[`:db/2025.09.02/quote;`ask;4+]
+  path: `$((string dir),"/",(string col));
+  newcol:fn each get path;
+  path set newcol
+ }
 
+
+/ perform a function on a column
+fncol:{[dbdir;table;col;fn] / fncol[`:db;`quote;`bid;2*]
+  fn1col[;col;fn] each allpaths[dbdir;table];}
+  
+
+/ cast a column from one type to another
+castcol:{[dbdir;table;col;newtype] / castcol[`:db;`quote;`ask;`short]
+	fncol[dbdir;table;col;newtype$]}
 
 
 
