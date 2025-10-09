@@ -55,7 +55,6 @@ delete1col:{[tabledir;col]
     path set columns; / rewrites the .d file
     colpath: ` sv (file;col);
     hdel colpath
-
   }
 /
 To take another example, if you call add1col for a given db/date/table folder, in which all the columns are — say — 10 long, and for the second argument you have `tradetime and the default value is 0Np (null timestamp), then your .d file should have `tradetime added to it, and a new tradetime file should be added to that folder which is equal to 10#0Np.
