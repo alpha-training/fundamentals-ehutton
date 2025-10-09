@@ -40,12 +40,13 @@ trade2:([]
 
 savetable:{[d;t] 
   -1 "Saving table ",(string t)," for date ",(string d),". Row count: ",string count get t;
-
+  sorted: `sym`time xasc get t;
+  parted: update `p#sym from sorted;
   / 2. Construct the file path for saving
   fileHandle: `$(":db/", (string d), "/", (string t),"/"); / added the/ at the end to make it splayed
   
   / 3. Save the table to disk
-  fileHandle set .Q.en[`:db; value t];
+  fileHandle set .Q.en[`:db; parted];
   
   delete from t
  }
