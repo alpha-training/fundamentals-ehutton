@@ -26,7 +26,7 @@ add1col:{[tabledir;colname;defaultvalue]
     list1: (file; `.d);
     path1: ` sv list1;
     col: get path1; /this returns the columns names only need up to here for allcols
-    if[colname in col; :(string colname)," is already a column in the table"] / stop the function early if the column is already in the table
+    if[colname in col; :(string colname)," is already a column in: ",(string tabledir)] / stop the function early if the column is already in the table
     list2: (file; col[0]);
     path2: ` sv list2;
     size: count get path2; /this successfully gets the size of the table
@@ -56,6 +56,31 @@ delete1col:{[tabledir;col]
     colpath: ` sv (file;col);
     hdel colpath
   }
+
+
+dateFolders:{[dir] f where(f:key dir)like"[0-9]*"}
+
+/ allpaths[`:db;`quote]
+allpaths:{[dbdir;table]	
+  file: `$(string (hsym dbdir));
+  L: string dateFolders[dbdir]; / `2025.09.02`2025.09.03`2025.10.07
+  pre: (string dbdir),"/";
+  suf: "/",(string table);
+  `$((pre ,/: L),\: suf) 
+ }
+
+
+addcol:{[dbdir;table;colname;defaultvalue] 		/ addcol[`:db;`quote;`volume;0N]
+  add1col[;colname;defaultvalue] each allpaths[dbdir;table]
+  }
+
+deletecol:{[dbdir;table;col] 	/ deletecol[`:db;`quote;`volume]
+    delete1col[;col] each allpaths[dbdir;table]
+  }
+
+
+
+
 /
 To take another example, if you call add1col for a given db/date/table folder, in which all the columns are — say — 10 long, and for the second argument you have `tradetime and the default value is 0Np (null timestamp), then your .d file should have `tradetime added to it, and a new tradetime file should be added to that folder which is equal to 10#0Np.
 
