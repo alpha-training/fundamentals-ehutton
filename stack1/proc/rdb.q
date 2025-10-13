@@ -1,12 +1,8 @@
 / rdb.q
 
 \e 1
-
-
-
-
 h:hopen 5010
-
+PROCS:("SSI";enlist",") 0:`:proc/config/processes.csv;
 
 sub:{[t];
     h(`.u.sub;t);
@@ -35,24 +31,35 @@ trade2:([]
 
 .u.end:{[d] -1"end of day has been called for date: ",string d;
     savetable[d] each tables`;
+  
+    hdbPort: 7h$(flip select port from PROCS where proc=`hdb)[`port][0];
+
+    -1 "Attempting to connect to HDB on port ",(string hdbPort)," to trigger reload...";
+    hdbHandle: @[hopen;hdbPort;{ -1 "HDB reload failed: ",x}];
+
+  / 5. If connection succeeded, send the reload command and close the handle
+    if[not null hdbHandle;
+      -1 "HDB reload signal sent.";
+      hdbHandle"reload[]";
+      hclose hdbHandle;
+      ];
  }
 
 
-savetable:{[d;t] 
+savetable:{[d;t] / need to edit this to save the the environment variable 
   -1 "Saving table ",(string t)," for date ",(string d),". Row count: ",string count get t;
+  hdbPath:getenv`HDB;  
   sorted: `sym`time xasc get t;
   parted: update `p#sym from sorted;
   / 2. Construct the file path for saving
-  fileHandle: `$(":db/", (string d), "/", (string t),"/"); / added the/ at the end to make it splayed
-  
-  / 3. Save the table to disk
-  fileHandle set .Q.en[`:db; parted];
+  file: hsym`$hdbPath,"/",(string d),"/",(string t),"/"; / added the/ at the end to make it splayed
+  file set .Q.en[hsym`$hdbPath;parted];
   
   delete from t
  }
 
 
-
+/
 -1 "Subscribing to `trade and `.u.end...";
 h(`.u.sub;`trade);
 h(`.u.sub;`.u.end);

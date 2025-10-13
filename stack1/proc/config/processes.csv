@@ -1,0 +1,4 @@
+name,proc,port
+tp1,tick,5010
+rdb1,rdb,5011
+hdb1,hdb,5012

@@ -12,6 +12,10 @@ if[not `proc in key ARGS::first each .Q.opt .z.x;
 PROC:ARGS`proc; /PROC is the arguments that are in the proc row
 
 \d .
+if[""~getenv(`$(.wrap.PROC));
+    -1"exiting! ",.wrap.PROC," environment variable is not define";
+    exit 1
+  ]
 if["tick"~.wrap.PROC;-1"This is a tickerplant"];
 if["rdb"~.wrap.PROC;-1"This is a Realtime Database"];
 
