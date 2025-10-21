@@ -1,0 +1,27 @@
+nohup: failed to run command '/opt/q/m64/q': No such file or directory
+sh: line 1: nohup/opt/q/w64/q: No such file or directory
+nohup: failed to run command '/opt/q/w64/q': No such file or directory
+nohup: failed to run command '/opt/q/164/q': No such file or directory
+'2025.10.15T16:03:52.234 tp1.q. OS reports: No such file or directory
+'2025.10.15T16:08:03.096 5010. OS reports: Address already in use
+  [2]  /home/ehutton/fundamentals-ehutton/stack1/proc/tick.q:1: \p 5010
+                                                                ^
+'2025.10.15T16:28:18.125 5010. OS reports: Address already in use
+  [2]  /home/ehutton/fundamentals-ehutton/stack1/proc/tick.q:1: \p 5010
+                                                                ^
+'2025.10.15T16:32:03.505 .wrap.PROC
+  [2]  /home/ehutton/fundamentals-ehutton/stack1/proc/hdb.q:4: if[""~hdbPath; / exiting if environment variable is not defined
+    -1"exiting! ",.wrap.PROC," environment variable is not define";
+                  ^
+    exit 1
+'2025.10.15T16:32:32.785 proc/config/processes.csv. OS reports: No such file or directory
+  [2]  /home/ehutton/fundamentals-ehutton/stack1/proc/rdb.q:5: PROCS:("SSI";enlist",") 0:`:proc/config/processes.csv;
+                                                                                       ^
+'2025.10.15T17:15:05.984 5010. OS reports: Address already in use
+  [2]  /home/ehutton/fundamentals-ehutton/stack1/proc/tick.q:1: \p 5010
+                                                                ^
+'2025.10.15T17:15:06.101 .wrap.PROC
+  [2]  /home/ehutton/fundamentals-ehutton/stack1/proc/hdb.q:4: if[""~hdbPath; / exiting if environment variable is not defined
+    -1"exiting! ",.wrap.PROC," environment variable is not define";
+                  ^
+    exit 1

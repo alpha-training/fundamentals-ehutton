@@ -2,7 +2,7 @@
 / return the contents of the .d file in that directory
 \e 1
 
-
+\d .db
 allcols:{[tabledir] 
     file: `$(string (hsym tabledir));   
     list: (file; `.d);
@@ -21,20 +21,20 @@ allcols:{[tabledir]
 
 
 add1col:{[tabledir;colname;defaultvalue]
-   -1"Adding the ",(string colname)," to the table ",(string tabledir);
-    file: `$(string (hsym tabledir));   
-    list1: (file; `.d);
-    path1: ` sv list1;
-    col: get path1; /this returns the columns names only need up to here for allcols
-    if[colname in col; :(string colname)," is already a column in: ",(string tabledir)] / stop the function early if the column is already in the table
-    list2: (file; col[0]);
-    path2: ` sv list2;
-    size: count get path2; /this successfully gets the size of the table
-    colpath: `$((string tabledir), "/", (string colname)); / added the/ at the end to make it splayed
-    defaultData: size#(defaultvalue);
+   -1"Adding the ",string[colname]," to the table ",string tabledir;
+    file:`$(string hsym tabledir);   
+    list1:(file;`.d);
+    path1:` sv list1;
+    col:get path1; /this returns the columns names only need up to here for allcols
+    if[colname in col;:string[colname]," is already a column in: ",string[tabledir]]; / stop the function early if the column is already in the table
+    list2:(file; col[0]);
+    path2:` sv list2;
+    size:count get path2; /this successfully gets the size of the table
+    colpath:`$(string[tabledir],"/", string[colname]); / added the/ at the end to make it splayed
+    defaultData:size#defaultvalue;
     colpath set defaultData;
-    path1 set col,colname;
-  }
+    path1 set col,colname
+   }
 / need to add a if here to handle the case where it doesnt change it if the column is is already in the table and tidy this up
 
 
@@ -45,27 +45,25 @@ add1col:{[tabledir;colname;defaultvalue]
 / 	- delete the column file from folder
 / 	- delete the column name from the .d file
 delete1col:{[tabledir;col]
-    -1"deleting the ",(string col)," from ",(string tabledir);
-    file: `$(string (hsym tabledir));   
-    list: (file; `.d);
-    path: ` sv list;
-    columns: get path; /gets the columns and returns as symbols
-    if[not col in columns; :string(col)," is not a column in the table"];
-    columns: columns except col; / removes col from the list of columns names
+    -1"deleting the ",string[col]," from ",string[tabledir];
+    file:`$(string[hsym tabledir]);   
+    list:(file; `.d);
+    path:` sv list;
+    columns:get path; /gets the columns and returns as symbols
+    if[not col in columns;:string[col]," is not a column in the table"];
+    columns:columns except col; / removes col from the list of columns names
     path set columns; / rewrites the .d file
-    colpath: ` sv (file;col);
+    colpath:` sv (file;col);
     hdel colpath
   }
 
 
-dateFolders:{[dir] f where(f:key dir)like"[0-9]*"}
-
-/ allpaths[`:db;`quote]
+dateFolders:{[dir] f where(f:key dir)like"[0-9]*"} / allpaths[`:db;`quote]
 allpaths:{[dbdir;table]	
-  file: `$(string (hsym dbdir));
-  L: string dateFolders[dbdir]; / `2025.09.02`2025.09.03`2025.10.07
-  pre: (string dbdir),"/";
-  suf: "/",(string table);
+  file:`$(string (hsym dbdir));
+  L:string dateFolders[dbdir]; / `2025.09.02`2025.09.03`2025.10.07
+  pre:string[dbdir],"/";
+  suf:"/",string[table];
   `$((pre ,/: L),\: suf) 
  }
 
@@ -78,7 +76,7 @@ deletecol:{[dbdir;table;col] 	/ deletecol[`:db;`quote;`volume]
     delete1col[;col] each allpaths[dbdir;table]
   }
 fn1col:{[dir;col;fn] /fn1col[`:db/2025.09.02/quote;`ask;4+]
-  path: `$((string dir),"/",(string col));
+  path:`$((string dir),"/",(string col));
   newcol:fn get path;
   path set newcol
  }
@@ -98,13 +96,14 @@ castcol:{[dbdir;table;col;newtype] / castcol[`:db;`quote;`ask;`short]
 
 / set an attribute on a column. need to do something like `g#L on each column
 setattrcol:{[dbdir;table;col;newattr] / setattrcol[`:db;`quote;`ask;`g] / `s `p `u
-  fncol[dbdir;table;col; newattr #]
+  fncol[dbdir;;col;newattr #]
  }
 / clear the attribute from a column
 clearattrcol:{[dbdir;table;col] / clearattrcol[`:db;`quote;`ask]
   fncol[dbdir;table;col;`#]
  }
-
+\d .
+/ `GOOG`AAPL`MSFT
 
 /
 To take another example, if you call add1col for a given db/date/table folder, in which all the columns are — say — 10 long, and for the second argument you have `tradetime and the default value is 0Np (null timestamp), then your .d file should have `tradetime added to it, and a new tradetime file should be added to that folder which is equal to 10#0Np.

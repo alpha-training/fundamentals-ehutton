@@ -1,4 +1,4 @@
-\l C:\Users\ellio\fundamentals-ehutton\stack1\lib\event.q
+\l /home/ehutton/fundamentals-ehutton/stack1/lib/event.q
 
 \e 1
 
@@ -7,24 +7,23 @@
 jobs:1!flip`func`start`period`lastRun`nextRun`error!"spnpp*"$\:()
 
 .tst.time:()
-.tst.pass:{-1"Pass function ran at ", string .z.t; .tst.time,: .z.t}
-.tst.fail:{-1"Fail function ran at ", string .z.t; .tst.time,: .z.t;10+`a} / This will cause a 'type error
+.tst.pass:{-1"Pass function ran at ",string .z.t; .tst.time,: .z.t}
+.tst.fail:{-1"Fail function ran at ",string .z.t; .tst.time,: .z.t;10+`a} / This will cause a 'type error
 
 
 
 / adds a a row to the jobs table, i.e someone comes along and schedules a job to be run
 / THIS WORKS
 add:{[func;start;period]
-    jobs:: jobs upsert (func; 12h$start; 16h$period; 0Np; 0Np; ""); / need to come back here and handle the error message 
+    `jobs upsert (func; 12h$start; 16h$period; 0Np; 0Np; ""); / need to come back here and handle the error message 
  }
 
 
 / runs a job i.e executes function
 run1:{[job;now]
-  period: (jobs job)[`period];
-  output: @[(get job);`; {x}];
-  .cron.jobs:: update lastRun:now, nextRun:now+period from jobs where func = job;
-  .cron.jobs:: update error: enlist output from jobs where func = job;
+  period:(jobs job)[`period];
+  output:@[(get job);`; {x}];
+  .cron.jobs:update lastRun:now,nextRun:now+period,error: enlist output from jobs where func=job;
  }
 
 
