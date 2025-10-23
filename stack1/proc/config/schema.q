@@ -7,8 +7,8 @@ t:("SS";enlist ",") 0:`:config/schemas/trade.csv
 
 cq:q`c;
 ct:t`c;
-typet:raze string each t`t
-typeq:raze string each q`t
+typet:raze string t`t
+typeq:raze string q`t
 
 
 f1:{[tp] tp$()} / takes a type and returns its null value

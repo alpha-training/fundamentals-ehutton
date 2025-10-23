@@ -1,6 +1,6 @@
 \p 5010
-\l C:/Users/ellio/fundamentals-ehutton/stack1/lib/cron.q
-
+\l /home/ehutton/fundamentals-ehutton/stack1/lib/cron.q
+\l /home/ehutton/fundamentals-ehutton/stack1/proc/config/schema.q
 
 trade1:([]
   sym:   `GOOG`MSFT`AAPL;
@@ -21,7 +21,7 @@ trade2:([]
 \d .u
 w:(0#`)!()		/ dict of tables to subscribers 
 sub:{[t] 
-    w[t]:: distinct w[t],.z.w;
+    w[t]::distinct w[t],.z.w;
  }		/ register the subscriber's interest in t by amending w
 
 pub:{[t;x] 
@@ -31,8 +31,8 @@ pub:{[t;x]
 
 
 COLS_DICT:()!()
-COLS_DICT[`trade]:`time`sym`size`price`exchange
-COLS_DICT[`quote]:`time`sym`bid`ask`bidSize`askSize`exchange
+COLS_DICT[`trade]:.schema.c.trade
+COLS_DICT[`quote]:.schema.c.quote
 
 upd:{[t;x] 
   tbl: flip COLS_DICT[t]!x;

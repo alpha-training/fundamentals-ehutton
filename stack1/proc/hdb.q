@@ -21,4 +21,6 @@ getTrades:{[dateRange;syms;incQuotes] / getTrades[2025.09.03 2025.10.20;`GOOG`MS
   :select sym,time,price,size from trade where date in r,sym in syms
  }
 
+getPort:{0N!(`start;.z.t);do[1000;til 500000];0N!(`end;.z.t);system "p"}
+
 testB:{10 20 30}

@@ -3,5 +3,6 @@ cc,cc,5000,
 tp1,tick,5010,
 rdb1,rdb,5011,
 hdb1,hdb,5012,
-gw1,gw,5013,-servers rdb1|hdb1
+gw1,gw,5013,-servers rdb1|hdb1|lvc1
+lvc1,lvc,5014,
 

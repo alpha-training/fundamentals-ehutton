@@ -1,6 +1,5 @@
 \l /home/ehutton/fundamentals-ehutton/stack1/proc/ipc.q
 / remember to delete this load in function since it will already be loaoded in when we launch with boot
-
 \d gw.
 procs:("SSI*";enlist ",") 0:`:config/processes.csv;
 args:first each .Q.opt .z.x;
@@ -23,9 +22,14 @@ getfuncArgs:{[func] / getfuncArgs[`sub] returns a list size 2. first entry the f
   :(func;args);
   }
 
-query:{[funcArgs] / query[(`getTrades;`dateRange`syms`incQuotes)]
+asyncCallback:{neg[.z.w] get x}
+
+saquery:{[funcArgs] / query[(`getTrades;`dateRange`syms`incQuotes)]
   fservers:(key servers) where funcArgs[0] in/: value servers;
   handles:exec handle from .ipc.conns where name in fservers; 
-  :raze handles@\:(funcArgs[0];funcArgs[1]);
+  neg[handles]@\:(asyncCallback;(funcArgs[0];funcArgs[1])); / send to each handles
+  neg[handles]@\:(::); / flush
+  raze handles@\:(::); / wait
  }
- \d .
+
+\d .

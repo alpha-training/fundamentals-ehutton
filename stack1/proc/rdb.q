@@ -1,9 +1,12 @@
 / rdb.q
 \e 1
 \l /home/ehutton/fundamentals-ehutton/stack1/proc/script/dbedit.q
+\l /home/ehutton/fundamentals-ehutton/stack1/proc/config/schema.q
 
 /h:hopen 5010
 PROCS:("SSI";enlist",") 0:`:config/processes.csv;
+trade:.schema.t.trade
+quote:.schema.t.quote
 \l db
 
 sub:{[t];
@@ -15,21 +18,7 @@ upd:{[t;x]
        -1"Unknown message type received by upd: ",string t]
     };
 
-trade1:([]
-  sym:`GOOG`MSFT`AAPL;
-  time:.z.p + 00:00:01*til 3;
-  price:100.1 100.2 100.3;
-  size:100 200 150;
-  exchange:3?`L`N`T
-  )
 
-trade2:([]
-  sym:`IBM`VOD`TSCO`AMZN;
-  time:.z.p + 00:00:10 + 00:00:01*til 4;
-  price:25.5 26.0 25.8 26.2;
-  size:500 1000 300 700;
-  exchange:4?`L`N`T
-  )
 
 .u.end:{[d] -1"end of day has been called for date: ",string d;
     savetable[d] each tables`;
@@ -65,6 +54,7 @@ getTrades:{[dateRange;syms;incQuotes] / getTrades[2025.09.03 2025.10.20;`GOOG`MS
   if[incQuotes~1b;:aj[`sym`time;imt;imq]];
   :select from trade where date in r,sym in syms
  }
+getPort:{0N!(`start;.z.t);do[1000;til 500000];0N!(`end;.z.t);system "p"}
 
 testA:{10 20 30}
 testB:{40 50 60}
