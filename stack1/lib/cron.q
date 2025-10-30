@@ -15,14 +15,14 @@ jobs:1!flip`func`start`period`lastRun`nextRun`error!"spnpp*"$\:()
 / adds a a row to the jobs table, i.e someone comes along and schedules a job to be run
 / THIS WORKS
 add:{[func;start;period]
-    `jobs upsert (func; 12h$start; 16h$period; 0Np; 0Np; ""); / need to come back here and handle the error message 
+    `.cron.jobs upsert (func; 12h$start; 16h$period; 0Np; 0Np; ""); / need to come back here and handle the error message 
  }
 
 
 / runs a job i.e executes function
 run1:{[job;now]
   period:(jobs job)[`period];
-  output:@[(get job);`; {x}];
+  output:@[(get job);`;{x}];
   .cron.jobs:update lastRun:now,nextRun:now+period,error: enlist output from jobs where func=job;
  }
 

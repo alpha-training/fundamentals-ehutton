@@ -14,3 +14,9 @@ heartbeat:{[pname;x]	/ heartbeat[`rdb1;`used`heap#.Q.w[]] .client.heartbeat[`rdb
 .cron.add[`.client.heartbeat;.z.p;00:00:05]
 / add a cron job to heartbeat every 5 seconds
 / first heartbeat should go out now
+
+.u.runQuery:{[funcArgs] / .u.runQuery[(`getTrades;(2025.09.03 2025.10.29;`GOOG`MSFT;1b))]
+  neg[h](`.gw.query;funcArgs)
+ }
+
+.u.sub:{show x}

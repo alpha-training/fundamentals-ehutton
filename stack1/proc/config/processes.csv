@@ -5,4 +5,5 @@ rdb1,rdb,5011,
 hdb1,hdb,5012,
 gw1,gw,5013,-servers rdb1|hdb1|lvc1
 lvc1,lvc,5014,
+agw1,agw,5015,-servers rdb1|hdb1
 

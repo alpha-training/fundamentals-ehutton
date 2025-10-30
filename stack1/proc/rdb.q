@@ -3,7 +3,6 @@
 \l /home/ehutton/fundamentals-ehutton/stack1/proc/script/dbedit.q
 \l /home/ehutton/fundamentals-ehutton/stack1/proc/config/schema.q
 
-/h:hopen 5010
 PROCS:("SSI";enlist",") 0:`:config/processes.csv;
 trade:.schema.t.trade
 quote:.schema.t.quote
@@ -46,15 +45,25 @@ savetable:{[d;t] / need to edit this to save the the environment variable
   delete from t
  }
 
-getTrades:{[dateRange;syms;incQuotes] / getTrades[2025.09.03 2025.10.20;`GOOG`MSFT;1b]
+getTrades:{[dateRange;syms;incQuotes] / getTrades[2025.09.03 2025.10.29;`GOOG`MSFT;1b]
   r:dateRange[0]+til dateRange[1]-dateRange[0]-1;
   if[not .z.d in r;:()];
   imt:select from trade where date in r,sym in syms;
   imq:select from quote where date in r,sym in syms;
-  if[incQuotes~1b;:aj[`sym`time;imt;imq]];
-  :select from trade where date in r,sym in syms
+  if[incQuotes;:select sym,time,price,size,bid,ask from aj[`sym`time;imt;imq]];
+  :from trade where date in r,sym in syms
  }
 getPort:{0N!(`start;.z.t);do[1000;til 500000];0N!(`end;.z.t);system "p"}
+
+gwResponse:{[cid;sid;func;Args] /gwResponse[1003;1003;`getTrades;(2025.09.03 2025.10.29;`GOOG`MSFT;1b)]
+  res:.[get func;Args;{:`ERR,x}]; /run func and get result
+  neg[h](`.gw.serverResponse;cid;sid;res); /send back result by calling serverResponse
+ }
+
+
+.u.runQuery:{[funcAargs] / .u.runQuery[(`getTrades;(2025.09.03 2025.10.29;`GOOG`MSFT;1b))]
+  neg[h](`.gw.query;funcArgs)
+ }
 
 testA:{10 20 30}
 testB:{40 50 60}
@@ -63,7 +72,11 @@ testB:{40 50 60}
 h(`.u.sub;`trade);
 h(`.u.sub;`.u.end);
 /
+
+neg[h]"update responded:1b,result:enlist ",string[res]," from `serverRequests where serverReqID=",string sid;
+
 Kieran Feedback
 
 sub:{[t];  -> sub:{[t]  you don't need a ; after the arguments
 `:2025.09.03/trade/.d`:2025.09.02/trade/.d
+tab:([]sym:`a`b`c;size:100 200 300;vol:1 2 3)
